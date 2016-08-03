@@ -1,3 +1,8 @@
+/*
+ * @author helondeng,junmo
+ * 搜索功能，对应search.html
+ */
+
 var express = require('express'),
     router = express.Router();
 
@@ -6,9 +11,9 @@ var Icon = require('../model/icon.js'),
     Business = require('../model/business.js'),
     EventEmitter = require('eventemitter2').EventEmitter2,
     emitter = new EventEmitter();
-    svgParser = require('../utils/svg_parser.js');
+svgParser = require('../utils/svg_parser.js');
 
-router.get('/', function (req, res, next) {
+router.get('/', function(req, res, next) {
     search(req.query.q, function(err, arr) {
         if (err) return next(err);
 
@@ -32,9 +37,9 @@ function uniqList(arr) {
     var ret = [],
         tmpl = {},
         item;
-    for(var k=0,len=arr.length; k<len; k++){
+    for (var k = 0, len = arr.length; k < len; k++) {
         item = arr[k];
-        if(!tmpl[item]){
+        if (!tmpl[item]) {
             tmpl[item] = 1;
             ret.push(item);
         }
@@ -43,8 +48,8 @@ function uniqList(arr) {
 }
 
 /*
-* 图标名
-* 标签
+ * 图标名
+ * 标签
  */
 function search(q, cb) {
     // todo: validate param q
@@ -58,7 +63,7 @@ function search(q, cb) {
         total = 0,
         regexp = new RegExp(q, 'i');
     emitter.on('finish', function() {
-        if(++total == SOURCE_TOTAL) {
+        if (++total == SOURCE_TOTAL) {
             ids = uniqList(ids);
             Icon.find({
                 iconId: {
@@ -69,9 +74,9 @@ function search(q, cb) {
                 var rets = {};
                 icons.forEach(function(icon) {
                     icon.content = svgParser.generateHtmlIconContent(icon.iconId);
-                    if(!rets[icon.business]) {
+                    if (!rets[icon.business]) {
                         rets[icon.business] = [];
-                    } 
+                    }
                     rets[icon.business].push(icon);
                 });
                 typeof cb === 'function' && cb(err, rets);
@@ -83,7 +88,7 @@ function search(q, cb) {
     Icon.find({
         name: regexp
     }).exec(function(err, icons) {
-        if(err) {
+        if (err) {
             console.error(err);
             return cb(err);
         }
@@ -94,15 +99,13 @@ function search(q, cb) {
     })
 
     Tag.find({
-        $or: [
-            {
-                iconName: regexp
-            }, {
-                tag: regexp
-            }
-        ]
+        $or: [{
+            iconName: regexp
+        }, {
+            tag: regexp
+        }]
     }).exec(function(err, tags) {
-        if(err) {
+        if (err) {
             console.error(err);
             return cb(err);
         }

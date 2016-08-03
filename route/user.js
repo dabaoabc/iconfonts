@@ -1,3 +1,7 @@
+/*
+ * @author helondeng, moxhe,junmo
+ * 个人中心页面的展示，包括删除项目
+ */
 var express = require('express'),
     router = express.Router(),
     Icon = require('../model/icon.js'),
@@ -8,7 +12,7 @@ var express = require('express'),
 
 var addUserToMongo = require('../midware/addUserToMongo.js');
 
-
+// 删除项目
 router.post('/delete', function(req, res, next){
     var name = req.body.name;
     Business.remove({
@@ -23,7 +27,7 @@ router.post('/delete', function(req, res, next){
     })
 })
 
-
+// 获取项目和icon
 router.get('/', addUserToMongo, function(req, res, next) {
     function getAllIcons(cb) {
         Icon.find({

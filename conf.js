@@ -1,12 +1,12 @@
 /*
-* @by helondeng, moxhe
-* config info
-*/
+ * @by helondeng, moxhe，junmo
+ * config info
+ */
 
 module.exports = {
 	// 监听端口
 	port: 4001,
-	// svg path
+	// svg 路径
 	svgPath: './store/ke.qq.com-svg',
 	allSvgZipPath: 'download/svgs.zip',
 	// mongodb info
@@ -22,11 +22,11 @@ module.exports = {
 	origin: 'http://iconfont.imweb.io',
 
 	userID: '833D4B884C0D1DAD412680DDA3031F6B',
-	
-    diff: 32,
+
+	diff: 32,
 	auth: {
 		upload: 1,
-        business: 2,
-        updateIcon: 4
+		business: 2,
+		updateIcon: 4
 	}
 };

@@ -6,6 +6,20 @@ url("./fonts/iconfont.woff") format("woff"),
 url("./fonts/iconfont.ttf") format("truetype"),
 url("./fonts/iconfont.svg#iconfont") format("svg");}
 .icon-font{font-family:"iconfont";font-size:16px;font-style:normal;font-weight: normal;font-variant: normal;text-transform: none;line-height: 1;position: relative;vertical-align:-2px;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
+.i-social-color-1_logo-linkedin:before{content: "\f10d";}
+.i-social-16px_logo-github:before{content: "\f10e";}
+.i-alert-border:before{content: "\f10f";}
+.i-arrow-bottom:before{content: "\f110";}
+.i-boxiaole:before{content: "\f119";}
+.i-behance:before{content: "\f11a";}
+.i-class:before{content: "\f11c";}
+.i-clone:before{content: "\f11d";}
+.i-close:before{content: "\f11e";}
+.i-comment:before{content: "\f11f";}
+.i-comment-to:before{content: "\f120";}
+.i-computor:before{content: "\f121";}
+.i-computor2:before{content: "\f122";}
+.i-consultation:before{content: "\f123";}
 .i-course-q-a:before{content: "\f125";}
 .i-course-record:before{content: "\f126";}
 .i-course-record-border:before{content: "\f127";}

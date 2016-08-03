@@ -1,6 +1,10 @@
+/*
+ * @author junmo
+ # 判断用户是否为登录状态，如果未登录，跳转到登录页面
+ * 用户登录之后，将用户名，id，头像更新并存进数据库
+ */
+
 var User = require('../model/user.js');
-
-
 
 function addUserToMongo(req, res, next){
 	var user = req.user;
@@ -22,12 +26,6 @@ function addUserToMongo(req, res, next){
 			img: req.user._json.figureurl_qq_1
 		};
 
-		// if (user.length === 0) {
-		// 	User.create(newuser, function(err){
-		// 		if (err) return console.log(err);
-		// 	});
-		// }
-
 		User.update({
 			id: req.user.id
 		},{
@@ -37,7 +35,6 @@ function addUserToMongo(req, res, next){
 				return console.log(err)
 			}
 		})
-
 
 		next();
 	})

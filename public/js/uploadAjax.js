@@ -32,10 +32,8 @@ $(function(){
 			url: '/upload/addproject',
 			data: params,
 			success: function(data){
-				
 				$('#js-business').append("<option value="+data[data.length-1].bid+">"+data[data.length-1].name+"</option>");
 				$("#js-business").find("option[value="+data[data.length-1].bid+"]").attr("selected",true);
-
 			}
 		})
 	}

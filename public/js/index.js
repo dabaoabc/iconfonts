@@ -48,23 +48,6 @@
 			});
 			location.href = '/download/' + ids.join('-');
 		});
-
-		// $(document).on('click', function() {
-		// 	$('#personOption,#loginReg,.arrow').hide();
-		// });
-
-		// $('#logIn').on('click', function(e){
-		// 	e.stopPropagation();
-		// 	$('#loginReg').toggle();
-		// });
-
-		// $('#person,#personImg').on('click', function(e){
-		// 	e.stopPropagation();
-		// 	$('.arrow').toggle();
-		// });
-
-		
-
 	}
 
 	function init() {

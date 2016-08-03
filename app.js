@@ -1,6 +1,6 @@
 var express = require('express'),
 	fs = require('fs');
-	path = require('path'),
+path = require('path'),
 	conf = require('./conf.js'),
 	//multer  = require('multer'),
 	ejs = require('ejs'),
@@ -12,8 +12,12 @@ var express = require('express'),
 
 var app = express();
 var jsonParser = bodyParser.json();
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
-var errorLogfile = fs.createWriteStream('error.log', {flags: 'a'});
+var urlencodedParser = bodyParser.urlencoded({
+	extended: false
+});
+var errorLogfile = fs.createWriteStream('error.log', {
+	flags: 'a'
+});
 
 app.engine('.html', ejs.renderFile);
 app.set('etag', 'strong');
@@ -23,7 +27,9 @@ app.set('views', path.join(__dirname, '/views'));
 
 app.use(cookieParser());
 app.use(bodyParser());
-app.use(session({ secret: 'keyboard cat' }));
+app.use(session({
+	secret: 'keyboard cat'
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -39,13 +45,11 @@ app.use(urlencodedParser);
 
 
 
-
-
 // 授权成功将整个user对象存入session
-passport.serializeUser(function(user, done){
+passport.serializeUser(function(user, done) {
 	done(null, user);
 });
-passport.deserializeUser(function(obj, done){
+passport.deserializeUser(function(obj, done) {
 	done(null, obj);
 })
 

@@ -1,3 +1,7 @@
+/*
+ * @author junmo
+ * 管理标签的功能，对应tag.html
+ */
 var express = require('express'),
     router = express.Router();
 

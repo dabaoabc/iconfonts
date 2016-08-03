@@ -1,6 +1,7 @@
 'use strict';
 /*
  * @author helondeng, moxhe,junmo
+ * 上传icon功能，对应upload.html
  */
 var express = require('express'),
     path = require('path'),
@@ -38,18 +39,6 @@ router.get('/', addUserToMongo, function(req, res, next){
             next(err);
             return;
 		}
-
-
-		// if (bids.length === 0) {
-		// 	var newBusiness = {
-		// 		name: "默认icon库",
-		// 		pm: req.user.nickname
-		// 	}
-		// 	Business.create(newBusiness, function(err){
-		// 		if (err) return console.log("添加数据库失败");
-		// 		console.log("添加数据库成功");
-		// 	});
-		// }
 		res.render('upload', {
 			user: req.user,
 			bids: bids
@@ -78,11 +67,8 @@ router.post('/addproject', function(req, res){
 				}
 				res.send(bids);
 			})
-		});
-
-		
-	}
-	
+		});	
+	}	
 })
 
 /*

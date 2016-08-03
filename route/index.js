@@ -3,14 +3,6 @@ var express = require('express'),
 var User = require('../model/user.js'),
     Business = require('../model/business.js'),
     Icon = require('../model/icon.js');
-// var main = require('../routes/main.js'),
-//     upload = require('./upload'),
-//     download = require('./download'),
-//     search = require('./search'),
-//     user = require('./user'),
-//     tag = require('./tag');
-
-
 var myupload = require('../route/upload'),
     // mybusiness = require('../route/business'),
     mymain = require('../route/main'),
@@ -82,7 +74,6 @@ passport.use(new StrategyQQ({
           //   }
           //   console.log("更新成功");
           // })
-
           return done(err, profile);
       }
       User.create(newuser, function(err){
@@ -135,7 +126,7 @@ router.get('/user/auth/qq',
 // function will not be called.
 });
 
-// GET /auth/qq/callback
+//   GET /auth/qq/callback
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  If authentication fails, the user will be redirected back to the
 //   login page.  Otherwise, the primary route function function will be called,

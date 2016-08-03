@@ -1,3 +1,7 @@
+/*
+ * @author helondeng,junmo
+ *  主页页面的展示，包括展示项目
+ */
 var express = require('express'),
     router = express.Router(),
     Icon = require('../model/icon.js'),
