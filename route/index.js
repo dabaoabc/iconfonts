@@ -12,7 +12,8 @@ var myupload = require('../route/upload'),
     mydownload = require('../route/download'),
     mysearch = require('../route/search'),
     management = require('../route/management');
-    
+var passport = require('passport');   
+var QQStrategy = require('passport-qq').Strategy; 
 var addUserToMongo = require('../midware/addUserToMongo.js');
 
 var conf = require('../conf.js');
@@ -23,14 +24,52 @@ router.use('/upload', myupload);
 router.use('/download', mydownload);
 router.use('/search', mysearch);
 router.use('/management', management);
+router.use('/tag', mytag);
+router.use('/user', myuser);
+router.use('/myindex', mymain);
+router.use('/update', myupdate);
+router.use(passport.initialize());
+router.use(passport.session());
+
+
+router.get('/business',function(req, res) {
+    res.render('404', {
+        user: req.user
+    });
+});
 router.use('/checkin', function(req, res){
     res.render('checkin', {
         user: req.user
      });
  });
+router.get('/rule', function(req, res){
+    res.render('rule',{
+        user: req.user
+    });
+});
+router.get('/intro', function(req, res){
+    res.render('intro', {
+        user: req.user
+     });
+ });
 
+router.get('/404', function(req, res) {
+    res.render('404', {
+        user: req.user
+    });
+});
+
+// console.log(QQStrategy);
+// passport序列化
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+// passport反序列化
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
 // QQ接口登录设置
-passport.use(new StrategyQQ({
+passport.use(new QQStrategy({
     clientID: conf.appId,
     clientSecret: conf.appKey,
     callbackURL: conf.origin + '/user/auth/qq/callback',
@@ -42,7 +81,6 @@ passport.use(new StrategyQQ({
     //     nickname: nickname,
     //     _json: json
     // }
-
     var newuser = {
       user: profile.nickname,
       id: profile.id,
@@ -52,32 +90,10 @@ passport.use(new StrategyQQ({
       id: newuser.id
     }).exec(function(err, user){
       if (user.length !== 0) {
-          // Business.update({
-          //   pm: user[0].user
-          // },{
-          //   "$set":{"id" :user[0].id}
-          // },{multi: 1}).exec(function(err){
-          //   if (err) {
-          //     console.log(err)
-          //   }
-          //   console.log("更新成功");
-          // })
-
-
-          // Icon.update({
-          //   author: user[0].user
-          // },{
-          //   "$set":{"id" :user[0].id}
-          // },{multi: true}).exec(function(err){
-          //   if (err) {
-          //     console.log(err)
-          //   }
-          //   console.log("更新成功");
-          // })
           return done(err, profile);
       }
       User.create(newuser, function(err){
-        if (err) return console.log(err);
+        if (err) next();
         return done(err, profile);
       });
 
@@ -86,37 +102,7 @@ passport.use(new StrategyQQ({
 }));
 
 
-router.use('/tag', mytag);
 
-router.use('/user', myuser);
-
-router.get('/rule', function(req, res){
-    res.render('rule',{
-        user: req.user
-    });
-});
-
-router.use('/intro', function(req, res){
-    res.render('intro', {
-        user: req.user
-     });
- });
-router.use('/myindex', mymain);
-// router.get('/myindex', function(req, res){
-//   res.send("ok");
-// });
-router.use('/update', myupdate);
-router.get('/business',function(req, res) {
-    res.render('404', {
-        user: req.user
-    });
-});
-
-router.get('/404', function(req, res) {
-    res.render('404', {
-        user: req.user
-    });
-});
 
 
 router.get('/user/auth/qq',
@@ -127,12 +113,8 @@ router.get('/user/auth/qq',
 });
 
 //   GET /auth/qq/callback
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  If authentication fails, the user will be redirected back to the
-//   login page.  Otherwise, the primary route function function will be called,
-//   which, in this example, will redirect the user to the home page.
 router.get('/user/auth/qq/callback', 
-  passport.authenticate('qq', { failureRedirect: '/login' }),
+  passport.authenticate('qq', { failureRedirect: '/' }),
   function(req, res) {
     res.redirect('/');
   });
@@ -142,6 +124,9 @@ router.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-
+// function ensureAuthenticated(req, res, next) {
+//   if (req.isAuthenticated()) { return next(); }
+//   res.redirect('/login')
+// }
 
 module.exports = router;
